@@ -7,10 +7,9 @@ package de.zakath.simplecrypt;
 
 import java.io.UnsupportedEncodingException;
 import java.security.*;
-import java.util.*;
 import java.util.logging.*;
+
 import javax.crypto.*;
-import javax.crypto.spec.*;
 
 /**
  * 

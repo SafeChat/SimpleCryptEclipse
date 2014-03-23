@@ -5,6 +5,7 @@
  */
 package de.zakath.simplecrypt;
 
+import java.io.UnsupportedEncodingException;
 import java.security.*;
 import java.util.*;
 import java.util.logging.*;
@@ -19,6 +20,8 @@ import javax.crypto.spec.*;
 public class AES
 {
 
+	public static final int KEY_SIZE = 256;
+	
     /**
      * Encrypts a given byte array with the given byte array key using AES. It's
      * strongly recommended, to use this method and NOT use any overloading!
@@ -29,16 +32,14 @@ public class AES
      */
     public static byte[] encrypt(byte[] input, byte[] key)
     {
-        byte[] hash = SHA1.computeHash(key);
-        hash = Arrays.copyOf(hash, 16);
-        SecretKeySpec secretKeySpec = new SecretKeySpec(hash, "AES");
         try
         {
+        	Key k = PBKDF2.deriveKey(new String(key,"UTF-8").toCharArray(), KEY_SIZE);
             Cipher cipher = Cipher.getInstance("AES");
-            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+            cipher.init(Cipher.ENCRYPT_MODE, k);
             return cipher.doFinal(input);
 
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException ex)
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | UnsupportedEncodingException ex)
         {
             Logger.getLogger(AES.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -95,16 +96,14 @@ public class AES
      */
     public static byte[] decrypt(byte[] input, byte[] key)
     {
-        byte[] hash = SHA1.computeHash(key);
-        hash = Arrays.copyOf(hash, 16);
-        SecretKeySpec secretKeySpec = new SecretKeySpec(hash, "AES");
         try
         {
+        	Key k = PBKDF2.deriveKey(new String(key,"UTF-8").toCharArray(), KEY_SIZE);
             Cipher cipher = Cipher.getInstance("AES");
-            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
+            cipher.init(Cipher.DECRYPT_MODE, k);
             return cipher.doFinal(input);
 
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException ex)
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | UnsupportedEncodingException ex)
         {
             Logger.getLogger(AES.class.getName()).log(Level.SEVERE, null, ex);
             return null;

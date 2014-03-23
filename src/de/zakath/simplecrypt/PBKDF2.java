@@ -38,7 +38,9 @@ public class PBKDF2
 			SecretKey s = f.generateSecret(ks);
 			Key k = new SecretKeySpec(s.getEncoded(), "AES");
 			return k;
-		} catch (InvalidKeySpecException | NoSuchAlgorithmException | UnsupportedEncodingException ex)
+		} catch (InvalidKeySpecException
+				| NoSuchAlgorithmException
+				| UnsupportedEncodingException ex)
 		{
 			return null;
 		}

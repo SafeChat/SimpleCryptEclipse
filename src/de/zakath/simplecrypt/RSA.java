@@ -22,7 +22,7 @@ public class RSA
 	public static final int KEYSIZE = 2048;
 
 	protected static final SecureRandom rnd = new SecureRandom();
-	
+
 	protected KeyPair _keypair;
 	protected RSA _rsa;
 
@@ -138,7 +138,8 @@ public class RSA
 			System.arraycopy(input, 0, output, sign.length, input.length);
 
 			return output;
-		} catch (NoSuchAlgorithmException | InvalidKeyException
+		} catch (NoSuchAlgorithmException
+				| InvalidKeyException
 				| SignatureException ex)
 		{
 			Logger.getLogger(RSA.class.getName()).log(Level.SEVERE, null, ex);
@@ -175,7 +176,8 @@ public class RSA
 
 			signature.update(data);
 			result = new VerifyResult(signature.verify(sign), data);
-		} catch (NoSuchAlgorithmException | InvalidKeyException
+		} catch (NoSuchAlgorithmException
+				| InvalidKeyException
 				| SignatureException ex)
 		{
 			Logger.getLogger(RSA.class.getName()).log(Level.SEVERE, null, ex);
@@ -199,9 +201,12 @@ public class RSA
 			Cipher cipher = Cipher.getInstance("RSA/None/pkcs1padding", "BC");
 			cipher.init(Cipher.ENCRYPT_MODE, _keypair.getPublic());
 			return cipher.doFinal(input);
-		} catch (NoSuchAlgorithmException | NoSuchPaddingException
-				| InvalidKeyException | IllegalBlockSizeException
-				| BadPaddingException | NoSuchProviderException ex)
+		} catch (NoSuchAlgorithmException
+				| NoSuchPaddingException
+				| InvalidKeyException
+				| IllegalBlockSizeException
+				| BadPaddingException
+				| NoSuchProviderException ex)
 		{
 			Logger.getLogger(RSA.class.getName()).log(Level.SEVERE, null, ex);
 			return null;
@@ -222,9 +227,12 @@ public class RSA
 			Cipher cipher = Cipher.getInstance("RSA/None/pkcs1padding", "BC");
 			cipher.init(Cipher.DECRYPT_MODE, _keypair.getPrivate());
 			return cipher.doFinal(input);
-		} catch (NoSuchAlgorithmException | NoSuchPaddingException
-				| InvalidKeyException | IllegalBlockSizeException
-				| BadPaddingException | NoSuchProviderException ex)
+		} catch (NoSuchAlgorithmException
+				| NoSuchPaddingException
+				| InvalidKeyException
+				| IllegalBlockSizeException
+				| BadPaddingException
+				| NoSuchProviderException ex)
 		{
 			Logger.getLogger(RSA.class.getName()).log(Level.SEVERE, null, ex);
 			return null;

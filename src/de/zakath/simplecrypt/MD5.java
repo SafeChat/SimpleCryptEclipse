@@ -9,24 +9,26 @@ package de.zakath.simplecrypt;
 import java.security.*;
 
 /**
- *
+ * 
  * @author cw
  */
 public class MD5
 {
-        /**
-     * Computes the MD5 hash of a given byte array.
-     * @param input The byte array, the hash should be computed from.
-     * @return The computed hash.
-     */
-    public static byte[] computeHash(byte[] input)
-    {
-        try
-        {
-            return MessageDigest.getInstance("MD5").digest(input);
-        } catch(NoSuchAlgorithmException e)
-        {
-            return null;
-        }
-    }
+	/**
+	 * Computes the MD5 hash of a given byte array.
+	 * 
+	 * @param input
+	 *            The byte array, the hash should be computed from.
+	 * @return The computed hash.
+	 */
+	public static byte[] computeHash(byte[] input)
+	{
+		try
+		{
+			return MessageDigest.getInstance("MD5").digest(input);
+		} catch (NoSuchAlgorithmException e)
+		{
+			return null;
+		}
+	}
 }

@@ -1,5 +1,6 @@
 package de.zakath.simplecrypt;
 
+import java.io.UnsupportedEncodingException;
 import java.security.*;
 import java.security.spec.*;
 
@@ -24,6 +25,14 @@ public class PBKDF2
 
 	}
 
-	
+	private static byte[] computeSalt(char[] password) throws UnsupportedEncodingException
+	{
+		byte[] salt = new String(password).getBytes("UTF-8");
+		for(int i = 0;i< password.length;i++ )
+		{
+			salt = SHA256.computeHash(salt);
+		}
+		return salt;
+	}
 	
 }
